@@ -6,12 +6,17 @@
 //
 
 import UIKit
+import ToDoListAppShared
 
 class ViewController: UIViewController {
 
     @IBOutlet weak var toDoListTable: UITableView!
     
-    var dataArray = ["ABC", "DEF", "GHI", "JKL"]
+//    var dataArray = ["ABC", "DEF", "GHI", "JKL"]
+    
+    var dataArray:[TaskModel] = []
+    
+    let taskModel = TaskOperations()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +25,11 @@ class ViewController: UIViewController {
         toDoListTable.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: UIBarButtonItem.Style.plain, target: self, action: #selector(addTask))
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        dataArray = taskModel.loadDataFromPlist()
+        toDoListTable .reloadData()
     }
 
     @objc func addTask(){
@@ -42,13 +52,13 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = dataArray[indexPath.row]
+        cell.textLabel?.text = dataArray[indexPath.row].name
         cell.accessoryType = .disclosureIndicator
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.navigateToEditScreen(taskTittleValue: dataArray[indexPath.row], tittleIndexValue: indexPath.row)
+        self.navigateToEditScreen(taskTittleValue: dataArray[indexPath.row].name, tittleIndexValue: indexPath.row)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

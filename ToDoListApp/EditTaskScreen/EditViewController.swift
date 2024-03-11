@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ToDoListAppShared
 
 class EditViewController: UIViewController, UITextViewDelegate {
 
@@ -13,6 +14,7 @@ class EditViewController: UIViewController, UITextViewDelegate {
     var indexvalue : Int?
     
     let tittleTextView = UITextView()
+    let taskOperationObj = TaskOperations()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,6 +73,13 @@ class EditViewController: UIViewController, UITextViewDelegate {
     }
     
     @objc func backToParentView(){
+        if(tittleValue == nil){
+            let taskDataModel = TaskModel(name: tittleTextView.text, level: 0, subtasks: nil)
+            taskOperationObj.flattenTasks([taskDataModel])
+        }
+        else{
+            taskOperationObj.updateValue(inPlist: "name", newValue: tittleTextView.text, at: indexvalue!)
+        }
         self.navigationController?.popToRootViewController(animated: true)
     }
     

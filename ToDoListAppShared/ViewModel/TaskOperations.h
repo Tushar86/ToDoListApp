@@ -22,9 +22,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(instancetype)init;
 -(NSMutableArray*)loadData;
--(void)flattenTasks:(NSArray<TaskModel *> *)tasks;
+-(void)flattenTasks:(NSArray<TaskModel *> *)tasks withSelectedParent:(nullable TaskModel *)isParentSelected;
 -(NSArray<TaskModel *> *)loadDataFromPlist;
 -(void)updateValueInPlist:(NSString *)key newValue:(NSString *)newValue atIndex:(NSInteger)index;
+- (void)deleteTask:(NSInteger)index;
 
 @end
 

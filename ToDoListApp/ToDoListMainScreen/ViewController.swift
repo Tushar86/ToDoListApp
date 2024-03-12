@@ -11,9 +11,7 @@ import ToDoListAppShared
 class ViewController: UIViewController {
 
     @IBOutlet weak var toDoListTable: UITableView!
-    
-//    var dataArray = ["ABC", "DEF", "GHI", "JKL"]
-    
+        
     var dataArray:[TaskModel] = []
     
     let taskModel = TaskOperations()
@@ -33,13 +31,15 @@ class ViewController: UIViewController {
     }
 
     @objc func addTask(){
-        self.navigateToEditScreen(taskTittleValue: nil, tittleIndexValue: nil)
+        self.navigateToEditScreen(taskTittleValue: nil, tittleIndexValue: nil, isParent: false, currentIndexTaskDataArray: nil)
     }
     
-    func navigateToEditScreen(taskTittleValue: String?, tittleIndexValue: Int?){
+    func navigateToEditScreen(taskTittleValue: String?, tittleIndexValue: Int?, isParent: Bool, currentIndexTaskDataArray: [TaskModel]?){
         lazy var editVC = EditViewController()
         editVC.tittleValue = taskTittleValue
         editVC.indexvalue = tittleIndexValue
+        editVC.isParent = isParent
+        editVC.dataArray = currentIndexTaskDataArray
         navigationController?.pushViewController(editVC, animated: true)
     }
 }
@@ -52,23 +52,31 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = dataArray[indexPath.row].name
+        let task = dataArray[indexPath.row]
+        // Indentation for hierarchy visualization (optional)
+        let indentation = String(repeating: "    ", count: task.level)
+          if (task.level == 0){
+              cell.textLabel?.text = indentation + "Root " + task.name
+          }else{
+              cell.textLabel?.text = indentation + "Child " + task.name
+          }
         cell.accessoryType = .disclosureIndicator
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.navigateToEditScreen(taskTittleValue: dataArray[indexPath.row].name, tittleIndexValue: indexPath.row)
+        self.navigateToEditScreen(taskTittleValue: dataArray[indexPath.row].name, tittleIndexValue: indexPath.row, isParent: false, currentIndexTaskDataArray: nil)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, sourceView, completion) in
-            self.dataArray.remove(at: indexPath.row)
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [unowned self] (action, sourceView, completion) in
+            dataArray.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
+            taskModel.deleteTask(indexPath.row)
             completion(true)
         }
         let addSubtaskAction = UIContextualAction(style: .normal, title: "Add Subtask") { (action, sourceView, completion) in
-            self.navigateToEditScreen(taskTittleValue: nil, tittleIndexValue: nil)
+            self.navigateToEditScreen(taskTittleValue: nil, tittleIndexValue: nil, isParent: true, currentIndexTaskDataArray: [self.dataArray[indexPath.row]])
             completion(true)
             
         }

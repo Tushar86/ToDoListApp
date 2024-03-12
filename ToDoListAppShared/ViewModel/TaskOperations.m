@@ -21,14 +21,26 @@
     return _dataArray;
 }
 
+- (void)addNewTask:(TaskModel *)newTask toParentTask:(TaskModel *)parentTask {
+    if (parentTask != nil) {
+        NSMutableArray<TaskModel *> *subtasks = [NSMutableArray arrayWithArray:parentTask.subtasks];
+        [subtasks addObject:newTask];
+        parentTask.subtasks = subtasks;
+    }
+}
 
-- (void)flattenTasks:(NSArray<TaskModel *> *)tasks {
-    if (tasks) {
-        
-        NSMutableArray<TaskModel *> *existingData = [NSMutableArray arrayWithArray:[self loadDataFromPlist]];
-        
+- (void)flattenTasks:(NSArray<TaskModel *> *)tasks withSelectedParent:(nullable TaskModel *)isParentSelected{
+    //    if (tasks) {
+    
+    NSMutableArray<TaskModel *> *existingData = [NSMutableArray arrayWithArray:[self loadDataFromPlist]];
+    
+    if (isParentSelected != nil) {
+        // Add new task as a child to the selected parent task
+        [self addNewTask:tasks[0] toParentTask:isParentSelected];
+    }/*else{*/
         // Append new records to existing data
         [existingData addObjectsFromArray:tasks];
+//}
         
         // Define the file path where the plist will be saved
         NSString *plistFilePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@"TasksList.plist"];
@@ -50,10 +62,6 @@
         } else {
             NSLog(@"Plist file saved successfully at path: %@", plistFilePath);
         }
-    }
-    else {
-        NSLog(@"No data to save.");
-    }
 }
 
 - (NSArray<TaskModel *> *)loadDataFromPlist {
@@ -103,6 +111,24 @@
     }
 }
 
+- (void)deleteTask:(NSInteger)index {
+    // Remove the task to delete from the data array
+//    [dataArray removeObject:taskToDelete];
+    
+    NSString *plistFilePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@"TasksList.plist"];
+    
+    // Load the contents of the plist into an array
+    NSMutableArray *plistArray = [NSMutableArray arrayWithContentsOfFile:plistFilePath];
+    if (plistArray && index < [plistArray count]) {
+        [plistArray removeObjectAtIndex:index];
+        if (![plistArray writeToFile:plistFilePath atomically:YES]) {
+            NSLog(@"Failed to update plist file.");
+        } else {
+            NSLog(@"Plist file updated successfully at path: %@", plistFilePath);
+        }
+    }
+
+}
 
 // Helper method to serialize subtasks
 - (NSArray<NSDictionary *> *)serializeSubtasks:(NSArray<TaskModel *> *)subtasks {

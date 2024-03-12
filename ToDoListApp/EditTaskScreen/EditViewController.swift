@@ -12,9 +12,12 @@ class EditViewController: UIViewController, UITextViewDelegate {
 
     var tittleValue : String?
     var indexvalue : Int?
+    var isParent = Bool()
     
     let tittleTextView = UITextView()
     let taskOperationObj = TaskOperations()
+    
+    var dataArray:[TaskModel]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,9 +76,16 @@ class EditViewController: UIViewController, UITextViewDelegate {
     }
     
     @objc func backToParentView(){
-        if(tittleValue == nil){
+        if(tittleValue == nil && isParent){
+            let taskDataModel = TaskModel(name: tittleTextView.text, level: (dataArray?[0].level)! + 1, subtasks: nil)
+//            dataArray?[0].subtasks?.append(taskDataModel)
+//            taskOperationObj.flattenTasks([taskDataModel])
+            taskOperationObj.flattenTasks([taskDataModel], withSelectedParent: dataArray?[0])
+        }
+        else if(tittleValue == nil){
             let taskDataModel = TaskModel(name: tittleTextView.text, level: 0, subtasks: nil)
-            taskOperationObj.flattenTasks([taskDataModel])
+//            taskOperationObj.flattenTasks([taskDataModel])
+            taskOperationObj.flattenTasks([taskDataModel], withSelectedParent: nil)
         }
         else{
             taskOperationObj.updateValue(inPlist: "name", newValue: tittleTextView.text, at: indexvalue!)

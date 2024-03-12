@@ -14,7 +14,14 @@
     if (self) {
         _name = [name copy];
         _level = level;
-        _subtasks = [subtasks copy];
+        _subtasks = [subtasks mutableCopy];
+        
+        // Retain each TaskModel object in the subtasks array
+                for (TaskModel *subtask in _subtasks) {
+                    if ([subtask isKindOfClass:[TaskModel class]]) {
+                        [subtask retain];
+                    }
+                }
     }
     return self;
 }

@@ -12,13 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TaskOperations : NSObject
 
-@property (strong, nonatomic) NSMutableArray<TaskModel *> *tasks;
-@property (strong, nonatomic) NSMutableArray<TaskModel *> *allTasks; // Flat list for table view
-
-@property (strong, nonatomic) NSMutableArray *dataArray;
-@property (strong, nonatomic) NSUserDefaults *defaults;
-
-
+@property (copy, nonatomic) NSMutableArray<TaskModel *> *tasks;
 
 -(instancetype)init;
 -(NSMutableArray*)loadData;

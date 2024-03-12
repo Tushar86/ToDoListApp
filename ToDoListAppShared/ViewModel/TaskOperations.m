@@ -10,34 +10,26 @@
 @implementation TaskOperations
 
 -(instancetype)init{
-//    [super init];
-    self.allTasks = [[NSMutableArray alloc]init];
-    self.dataArray = [[NSMutableArray alloc]init];
-    
     return self;
-}
-
-- (NSMutableArray*)loadData{
-    return _dataArray;
 }
 
 - (void)addNewTask:(TaskModel *)newTask toParentTask:(TaskModel *)parentTask {
     if (parentTask != nil) {
         NSMutableArray<TaskModel *> *subtasks = [NSMutableArray arrayWithArray:parentTask.subtasks];
         [subtasks addObject:newTask];
-        parentTask.subtasks = subtasks;
+        parentTask.subtasks = [subtasks copy];
     }
 }
 
 - (void)flattenTasks:(NSArray<TaskModel *> *)tasks withSelectedParent:(nullable TaskModel *)isParentSelected{
-    //    if (tasks) {
     
     NSMutableArray<TaskModel *> *existingData = [NSMutableArray arrayWithArray:[self loadDataFromPlist]];
     
     if (isParentSelected != nil) {
         // Add new task as a child to the selected parent task
-        [self addNewTask:tasks[0] toParentTask:isParentSelected];
-    }/*else{*/
+        [self addNewTask:[tasks firstObject] toParentTask:isParentSelected];
+    }
+//    else{
         // Append new records to existing data
         [existingData addObjectsFromArray:tasks];
 //}
@@ -113,7 +105,6 @@
 
 - (void)deleteTask:(NSInteger)index {
     // Remove the task to delete from the data array
-//    [dataArray removeObject:taskToDelete];
     
     NSString *plistFilePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@"TasksList.plist"];
     
@@ -137,7 +128,6 @@
         NSDictionary *serializedSubtask = @{
             @"name": subtask.name,
             @"level": @(subtask.level)
-            // Add more properties if needed
         };
         [serializedSubtasks addObject:serializedSubtask];
     }

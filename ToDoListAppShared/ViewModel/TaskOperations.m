@@ -119,4 +119,82 @@
     return subtasks;
 }
 
+- (void)markSubtasksAsCompletedForTask:(TaskList *)task {
+    NSMutableSet<NSIndexPath *> *updatedIndexPaths = [NSMutableSet set];
+    
+    // Check if the task is being marked as completed or incomplete
+    BOOL isCompleted = !task.isCompleted;
+    
+    // Mark the task and its subtasks as completed or incomplete
+    [self markSubtasksAsCompletedForSubtask:task parentCurrentState:isCompleted updatedIndexPaths:updatedIndexPaths];
+        
+    // If the task is being marked as incomplete, uncheck all related parent tasks
+    if (!isCompleted) {
+        [self uncheckRelatedParentTasksForTask:task updatedIndexPaths:updatedIndexPaths];
+    }
+    else {
+            // Check if all parent tasks are completed
+            [self checkRelatedParentTasksForTask:task updatedIndexPaths:updatedIndexPaths];
+        }
+    
+    // Send back the updated index paths to reload the rows
+    if ([self.delegate respondsToSelector:@selector(subtasksMarkedAsCompleted:)]) {
+        [self.delegate subtasksMarkedAsCompleted:updatedIndexPaths.allObjects];
+    }
+    // Save the changes to Core Data
+    [[CoreDataStack sharedInstance] saveContext];
+}
+
+- (void)markSubtasksAsCompletedForSubtask:(TaskList *)subtask parentCurrentState:(BOOL)isCompleted updatedIndexPaths:(NSMutableSet<NSIndexPath *> *)updatedIndexPaths {
+    // Mark the subtask itself as completed or incomplete
+    subtask.isCompleted = isCompleted;
+    
+    // Add indexPath of the updated subtask to the set
+    NSIndexPath *indexPath = [self.delegate indexPathForTask:subtask];
+    if (indexPath) {
+        [updatedIndexPaths addObject:indexPath];
+    }
+    
+    // Recursively mark sub-subtasks as completed or incomplete
+    for (TaskList *nestedSubtask in subtask.subtask) {
+        [self markSubtasksAsCompletedForSubtask:nestedSubtask parentCurrentState:isCompleted updatedIndexPaths:updatedIndexPaths];
+    }
+}
+
+- (void)uncheckRelatedParentTasksForTask:(TaskList *)task updatedIndexPaths:(NSMutableSet<NSIndexPath *> *)updatedIndexPaths {
+    TaskList *parentTask = task.parentTask;
+    while (parentTask) {
+        parentTask.isCompleted = NO;
+        NSIndexPath *indexPath = [self.delegate indexPathForTask:parentTask];
+        if (indexPath) {
+            [updatedIndexPaths addObject:indexPath];
+        }
+        parentTask = parentTask.parentTask;
+    }
+}
+
+- (void)checkRelatedParentTasksForTask:(TaskList *)task updatedIndexPaths:(NSMutableSet<NSIndexPath *> *)updatedIndexPaths {
+    TaskList *parentTask = task.parentTask;
+    while (parentTask) {
+        BOOL allChildrenCompleted = YES;
+        for (TaskList *subtask in parentTask.subtask) {
+            if (!subtask.isCompleted) {
+                allChildrenCompleted = NO;
+                break;
+            }
+        }
+        if (allChildrenCompleted) {
+            parentTask.isCompleted = YES;
+            NSIndexPath *indexPath = [self.delegate indexPathForTask:parentTask];
+            if (indexPath) {
+                [updatedIndexPaths addObject:indexPath];
+            }
+        } else {
+            // If any child task is incomplete, stop checking parents
+            break;
+        }
+        parentTask = parentTask.parentTask;
+    }
+}
+
 @end

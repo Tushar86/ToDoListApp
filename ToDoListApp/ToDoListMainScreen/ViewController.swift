@@ -8,15 +8,18 @@
 import UIKit
 import ToDoListAppShared
 
-class ViewController: UIViewController {
-
+class ViewController: UIViewController, TaskManagerDelegate {
+    
     @IBOutlet weak var toDoListTable: UITableView!
     
     let taskOperationObj = TaskOperations()
     var tasksArray : [TaskList] = []
     
     override func viewDidLoad() {
-        super.viewDidLoad()        
+        super.viewDidLoad()
+        
+        taskOperationObj.delegate = self
+        
         toDoListTable.register(UINib(nibName: "ToDoListTableViewCell", bundle: nil), forCellReuseIdentifier: "TaskCell")
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: UIBarButtonItem.Style.plain, target: self, action: #selector(addTask))
@@ -26,7 +29,7 @@ class ViewController: UIViewController {
         tasksArray = taskOperationObj.fetchTask()
         toDoListTable .reloadData()
     }
-
+    
     @objc func addTask(){
         self.navigateToEditScreen(taskTittleValue: nil, tittleIndexValue: nil, isParent: false, currentIndexTaskDataArray: nil)
     }
@@ -91,8 +94,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
             if let visibleIndexPaths = self.toDoListTable.indexPathsForVisibleRows {
                 for indexPath in visibleIndexPaths {
                     if indexPath.row >= indexPathsToRemove[0].row {
-                        // Update the index path
-                        // Get the cell and update its content if needed
                         if let cell = self.toDoListTable.cellForRow(at: indexPath) as? ToDoListTableViewCell {
                             self.configureCell(cell, for: indexPath)
                         }
@@ -112,6 +113,24 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
         }
         cell.taskNameLabel.text = task.taskName
         cell.taskCheckBtn.setImage(task.isCompleted ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "checkmark.circle"), for: .normal)
+        cell.taskCheckBtn.addTarget(self, action: #selector(self.taskCompleteAction(_:)), for: .touchUpInside)
+        cell.taskCheckBtn.tag = indexPath.row
+    }
+    
+    @objc func taskCompleteAction(_ sender: UIButton){
+        taskOperationObj.markSubtasksAsCompleted(forTask: tasksArray[sender.tag])
+    }
+    
+    func indexPath(forTask task: TaskList) -> IndexPath {
+        if let index = tasksArray.firstIndex(of: task) {
+            return IndexPath(row: index, section: 0)
+        }
+        return IndexPath(row: 0, section: 0)
+    }
+    
+    func subtasksMarked(asCompleted indexPaths: [IndexPath]) {
+        // Reload the rows in the table view corresponding to the updated index paths
+        toDoListTable.reloadRows(at: indexPaths, with: .automatic)
     }
 }
 

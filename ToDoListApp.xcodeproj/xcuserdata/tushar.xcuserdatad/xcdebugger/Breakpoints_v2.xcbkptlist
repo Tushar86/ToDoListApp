@@ -7,143 +7,8 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3C2CC777-D011-43E4-8ECD-5BE9E2FB5A51"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ToDoListAppShared/ViewModel/TaskOperations.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "185"
-            endingLineNumber = "185">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "3345BD8D-EBAD-46EE-8636-59D5BACC00B4"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ToDoListAppShared/ViewModel/TaskOperations.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "183"
-            endingLineNumber = "183">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "46B0D368-D51B-4986-BAB5-7E9E9B0FF7D8"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ToDoListAppShared/ViewModel/TaskOperations.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "198"
-            endingLineNumber = "198">
-            <Locations>
-               <Location
-                  uuid = "46B0D368-D51B-4986-BAB5-7E9E9B0FF7D8 - 8c5744eaec01f4d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[TaskOperations updateSubtaskInPlist:newValue:atIndex:]"
-                  moduleName = "ToDoListAppShared"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/tushar/Documents/ToDoListApp/ToDoListAppShared/ViewModel/TaskOperations.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "161"
-                  endingLineNumber = "161"
-                  offsetFromSymbolStart = "88">
-               </Location>
-               <Location
-                  uuid = "46B0D368-D51B-4986-BAB5-7E9E9B0FF7D8 - 72540ceb7bc83fa"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[TaskOperations taskModelFromDictionary:]"
-                  moduleName = "ToDoListAppShared"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/tushar/Documents/ToDoListApp/ToDoListAppShared/ViewModel/TaskOperations.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "161"
-                  endingLineNumber = "161"
-                  offsetFromSymbolStart = "476">
-               </Location>
-               <Location
-                  uuid = "46B0D368-D51B-4986-BAB5-7E9E9B0FF7D8 - 72540ceb7bc8721"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[TaskOperations taskModelFromDictionary:]"
-                  moduleName = "ToDoListAppShared"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/tushar/Documents/ToDoListApp/ToDoListAppShared/ViewModel/TaskOperations.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "198"
-                  endingLineNumber = "198"
-                  offsetFromSymbolStart = "476">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "46FB2BE3-ACC8-4EDD-AA7F-00ADF70E3353"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ToDoListAppShared/ViewModel/TaskOperations.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "194"
-            endingLineNumber = "194">
-            <Locations>
-               <Location
-                  uuid = "46FB2BE3-ACC8-4EDD-AA7F-00ADF70E3353 - 72540ceb7bc827e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[TaskOperations taskModelFromDictionary:]"
-                  moduleName = "ToDoListAppShared"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/tushar/Documents/ToDoListApp/ToDoListAppShared/ViewModel/TaskOperations.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "157"
-                  endingLineNumber = "157"
-                  offsetFromSymbolStart = "196">
-               </Location>
-               <Location
-                  uuid = "46FB2BE3-ACC8-4EDD-AA7F-00ADF70E3353 - 72540ceb7bc87a5"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[TaskOperations taskModelFromDictionary:]"
-                  moduleName = "ToDoListAppShared"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/tushar/Documents/ToDoListApp/ToDoListAppShared/ViewModel/TaskOperations.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "194"
-                  endingLineNumber = "194"
-                  offsetFromSymbolStart = "196">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "A9A087F0-FD6A-4464-B7D2-7D5EEBDA25D5"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ToDoListAppShared/ViewModel/TaskOperations.m"
@@ -154,7 +19,7 @@
             <Locations>
                <Location
                   uuid = "A9A087F0-FD6A-4464-B7D2-7D5EEBDA25D5 - 8c5744eaec015c2"
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "-[TaskOperations updateSubtaskInPlist:newValue:atIndex:]"
@@ -169,7 +34,7 @@
                </Location>
                <Location
                   uuid = "A9A087F0-FD6A-4464-B7D2-7D5EEBDA25D5 - 8c5744eaec015c2"
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "-[TaskOperations updateSubtaskInPlist:newValue:atIndex:]"
@@ -184,7 +49,7 @@
                </Location>
                <Location
                   uuid = "A9A087F0-FD6A-4464-B7D2-7D5EEBDA25D5 - 8c5744eaec015c2"
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "-[TaskOperations updateSubtaskInPlist:newValue:atIndex:]"
@@ -204,7 +69,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "7160ABB4-B88C-48D6-8A74-CA006889E3BA"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ToDoListAppShared/ViewModel/TaskOperations.m"
@@ -215,7 +80,7 @@
             <Locations>
                <Location
                   uuid = "7160ABB4-B88C-48D6-8A74-CA006889E3BA - 8c5744eaec012ca"
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "-[TaskOperations updateSubtaskInPlist:newValue:atIndex:]"
@@ -230,7 +95,7 @@
                </Location>
                <Location
                   uuid = "7160ABB4-B88C-48D6-8A74-CA006889E3BA - 8c5744eaec01225"
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "-[TaskOperations updateSubtaskInPlist:newValue:atIndex:]"
@@ -245,7 +110,7 @@
                </Location>
                <Location
                   uuid = "7160ABB4-B88C-48D6-8A74-CA006889E3BA - 8c5744eaec01225"
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "-[TaskOperations updateSubtaskInPlist:newValue:atIndex:]"
@@ -265,7 +130,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "74757768-AFE4-4CC3-95D7-DF36C57A8137"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ToDoListAppShared/ViewModel/TaskOperations.m"
@@ -276,7 +141,7 @@
             <Locations>
                <Location
                   uuid = "74757768-AFE4-4CC3-95D7-DF36C57A8137 - 8c5744eaec012a9"
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "-[TaskOperations updateSubtaskInPlist:newValue:atIndex:]"
@@ -291,7 +156,7 @@
                </Location>
                <Location
                   uuid = "74757768-AFE4-4CC3-95D7-DF36C57A8137 - 8c5744eaec01288"
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "-[TaskOperations updateSubtaskInPlist:newValue:atIndex:]"
@@ -306,7 +171,7 @@
                </Location>
                <Location
                   uuid = "74757768-AFE4-4CC3-95D7-DF36C57A8137 - 8c5744eaec01288"
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "-[TaskOperations updateSubtaskInPlist:newValue:atIndex:]"
@@ -326,7 +191,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "489715B8-5017-49BE-9854-838C6EC97522"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ToDoListAppShared/ViewModel/TaskOperations.m"
@@ -337,7 +202,7 @@
             <Locations>
                <Location
                   uuid = "489715B8-5017-49BE-9854-838C6EC97522 - 8c5744eaec0157c"
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "-[TaskOperations updateSubtaskInPlist:newValue:atIndex:]"
@@ -352,7 +217,7 @@
                </Location>
                <Location
                   uuid = "489715B8-5017-49BE-9854-838C6EC97522 - 8c5744eaec015c2"
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "-[TaskOperations updateSubtaskInPlist:newValue:atIndex:]"
@@ -367,7 +232,7 @@
                </Location>
                <Location
                   uuid = "489715B8-5017-49BE-9854-838C6EC97522 - 8c5744eaec0151d"
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "-[TaskOperations updateSubtaskInPlist:newValue:atIndex:]"

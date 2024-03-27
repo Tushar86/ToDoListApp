@@ -11,9 +11,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol TaskManagerDelegate <NSObject>
+
+- (NSIndexPath *)indexPathForTask:(TaskList *)task;
+- (void)subtasksMarkedAsCompleted:(NSArray<NSIndexPath *> *)indexPaths;
+
+@end
+
 @interface TaskOperations : NSObject
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, weak) id<TaskManagerDelegate> delegate;
 
 + (instancetype)sharedInstance;
 - (void)addTask:(NSString *)name taskLevel:(NSInteger)level;
@@ -21,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray<TaskList *> *)fetchTask;
 - (void)updateTaskWithName:(NSString *)updatedName ofTask:(TaskList *)selectedTask;
 - (void)deleteParentTaskAndSubtasks:(TaskList *)parentTask completion:(void (^)(NSArray<TaskList *> *))completion;
+- (void)markSubtasksAsCompletedForTask:(TaskList *)task;
 
 @end
 

@@ -6,20 +6,20 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <ToDoListAppShared/TaskModel.h>
+#import <ToDoListAppShared/TaskList.h>
+#import <ToDoListAppShared/CoreDataStack.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TaskOperations : NSObject
 
-@property (copy, nonatomic) NSMutableArray<TaskModel *> *tasks;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
--(instancetype)init;
--(NSMutableArray*)loadData;
--(void)flattenTasks:(NSArray<TaskModel *> *)tasks withSelectedParent:(nullable TaskModel *)isParentSelected;
--(NSArray<TaskModel *> *)loadDataFromPlist;
--(void)updateValueInPlist:(NSString *)key newValue:(NSString *)newValue atIndex:(NSInteger)index;
-- (void)deleteTask:(NSInteger)index;
++ (instancetype)sharedInstance;
+- (void)addTask:(NSString *)name taskLevel:(NSInteger)level;
+- (void)addSubtaskWithName:(NSString *)name subtaskLevel:(NSInteger)level atIndex:(NSInteger)indexValue parentTask:(TaskList *)parentTask;
+- (NSArray<TaskList *> *)fetchTask;
+- (void)updateTaskWithName:(NSString *)updatedName ofTask:(TaskList *)selectedTask;
 
 @end
 

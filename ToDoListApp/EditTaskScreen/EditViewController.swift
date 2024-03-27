@@ -17,7 +17,7 @@ class EditViewController: UIViewController, UITextViewDelegate {
     let tittleTextView = UITextView()
     let taskOperationObj = TaskOperations()
     
-    var dataArray:[TaskModel]?
+    var selectedTaskArray:[TaskList]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,18 +77,13 @@ class EditViewController: UIViewController, UITextViewDelegate {
     
     @objc func backToParentView(){
         if(tittleValue == nil && isParent){
-            let taskDataModel = TaskModel(name: tittleTextView.text, level: (dataArray?[0].level)! + 1, subtasks: nil)
-//            dataArray?[0].subtasks?.append(taskDataModel)
-//            taskOperationObj.flattenTasks([taskDataModel])
-            taskOperationObj.flattenTasks([taskDataModel], withSelectedParent: dataArray?[0])
+            taskOperationObj.addSubtask(withName: tittleTextView.text, subtaskLevel: selectedTaskArray![0].level+1, at: indexvalue!+1, parentTask: selectedTaskArray![0])
         }
         else if(tittleValue == nil){
-            let taskDataModel = TaskModel(name: tittleTextView.text, level: 0, subtasks: nil)
-//            taskOperationObj.flattenTasks([taskDataModel])
-            taskOperationObj.flattenTasks([taskDataModel], withSelectedParent: nil)
+            taskOperationObj.addTask(tittleTextView.text, taskLevel: 0)
         }
         else{
-            taskOperationObj.updateValue(inPlist: "name", newValue: tittleTextView.text, at: indexvalue!)
+            taskOperationObj.updateTask(withName: tittleTextView.text, ofTask: selectedTaskArray![0])
         }
         self.navigationController?.popToRootViewController(animated: true)
     }

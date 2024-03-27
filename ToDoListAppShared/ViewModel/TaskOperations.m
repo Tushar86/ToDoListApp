@@ -9,144 +9,80 @@
 
 @implementation TaskOperations
 
--(instancetype)init{
-    return self;
++ (instancetype)sharedInstance {
+    static TaskOperations *sharedInstance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[TaskOperations alloc] init];
+    });
+    return sharedInstance;
 }
 
-- (void)addNewTask:(TaskModel *)newTask toParentTask:(TaskModel *)parentTask {
-    if (parentTask != nil) {
-        NSMutableArray<TaskModel *> *subtasks = [NSMutableArray arrayWithArray:parentTask.subtasks];
-        [subtasks addObject:newTask];
-        parentTask.subtasks = [subtasks copy];
-    }
+- (void)addTask:(NSString *)name taskLevel:(NSInteger)level{
+    NSManagedObjectContext *context = [[CoreDataStack sharedInstance] managedObjectContext];
+    TaskList *newTask = [NSEntityDescription insertNewObjectForEntityForName:@"TaskList" inManagedObjectContext:context];
+    newTask.taskName = name;
+    newTask.level = level;
+    newTask.isCompleted = NO;
+    newTask.hierarchicalNumber = [self generateHierarchicalNumberForParent:nil inContext:context];
+    
+    [[CoreDataStack sharedInstance] saveContext];
 }
 
-- (void)flattenTasks:(NSArray<TaskModel *> *)tasks withSelectedParent:(nullable TaskModel *)isParentSelected{
+- (void)addSubtaskWithName:(NSString *)name subtaskLevel:(NSInteger)level atIndex:(NSInteger)indexValue parentTask:(TaskList *)parentTask {
+    NSManagedObjectContext *context = [[CoreDataStack sharedInstance] managedObjectContext];
+    TaskList *newTask = [NSEntityDescription insertNewObjectForEntityForName:@"TaskList" inManagedObjectContext:context];
+    newTask.taskName = name;
+    newTask.level = level;
+    newTask.isCompleted = NO;
+    newTask.parentTask = parentTask;
+    newTask.hierarchicalNumber = [self generateHierarchicalNumberForParent:parentTask inContext:context];
     
-    NSMutableArray<TaskModel *> *existingData = [NSMutableArray arrayWithArray:[self loadDataFromPlist]];
+    NSMutableSet *mutableSubtasks = [parentTask.subtask mutableCopy];
+    [mutableSubtasks addObject:newTask];
+    parentTask.subtask = [mutableSubtasks copy];
     
-    if (isParentSelected != nil) {
-        // Add new task as a child to the selected parent task
-        [self addNewTask:[tasks firstObject] toParentTask:isParentSelected];
-    }
-//    else{
-        // Append new records to existing data
-        [existingData addObjectsFromArray:tasks];
-//}
-        
-        // Define the file path where the plist will be saved
-        NSString *plistFilePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@"TasksList.plist"];
-        
-        // Serialize the Task model data into a format that can be saved to a plist
-        NSMutableArray<NSDictionary *> *serializedTasks = [NSMutableArray array];
-        for (TaskModel *task in existingData) {
-            NSDictionary *serializedTask = @{
-                @"name": task.name,
-                @"level": @(task.level),
-                @"subtasks": [self serializeSubtasks:task.subtasks] // Assuming subtasks are TaskModel objects
-            };
-            [serializedTasks addObject:serializedTask];
-        }
-        
-        // Write the serialized data to a plist file
-        if (![serializedTasks writeToFile:plistFilePath atomically:YES]) {
-            NSLog(@"Failed to save plist file.");
-        } else {
-            NSLog(@"Plist file saved successfully at path: %@", plistFilePath);
-        }
+    [[CoreDataStack sharedInstance] saveContext];
 }
 
-- (NSArray<TaskModel *> *)loadDataFromPlist {
-    // Define the file path from where the plist will be loaded
-    NSString *plistFilePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@"TasksList.plist"];
-    
-    // Load the data from the plist file
-    NSArray<NSDictionary *> *serializedTasks = [NSArray arrayWithContentsOfFile:plistFilePath];
-    
-    // Deserialize the loaded data back into Task model objects
-    NSMutableArray<TaskModel *> *dataArray = [NSMutableArray array];
-    if (serializedTasks) {
-        for (NSDictionary *serializedTask in serializedTasks) {
-            NSString *name = serializedTask[@"name"];
-            NSInteger level = [serializedTask[@"level"] integerValue];
-            NSArray<TaskModel *> *subtasks = [self deserializeSubtasks:serializedTask[@"subtasks"]]; // Assuming subtasks are TaskModel objects
-            TaskModel *task = [[TaskModel alloc] initWithName:name level:level subtasks:subtasks];
-            [dataArray addObject:task];
-        }
+- (NSString *)generateHierarchicalNumberForParent:(TaskList *)parent inContext:(NSManagedObjectContext *)context {
+    if (!parent) {
+        // If the task has no parent, assign a simple number
+        NSFetchRequest<TaskList *> *fetchRequest = [TaskList fetchRequest];
+        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"parentTask == nil"];
+        NSInteger count = [context countForFetchRequest:fetchRequest error:nil];
+        return [NSString stringWithFormat:@"%ld", (long)(count)];
     } else {
-        NSLog(@"Failed to load data from plist file.");
-    }
-    return [dataArray copy];
-}
-
-- (void)updateValueInPlist:(NSString *)key newValue:(NSString *)newValue atIndex:(NSInteger)index {
-    // Get the file path of the plist
-    NSString *plistFilePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@"TasksList.plist"];
-    
-    // Load the contents of the plist into an array
-    NSMutableArray *plistArray = [NSMutableArray arrayWithContentsOfFile:plistFilePath];
-    
-    // Update the value associated with the specified key in the dictionary at the specified index
-    if (plistArray && index < [plistArray count]) {
-        NSMutableDictionary *dictToUpdate = [NSMutableDictionary dictionaryWithDictionary:[plistArray objectAtIndex:index]];
-        [dictToUpdate setValue:newValue forKey:key];
-        [plistArray replaceObjectAtIndex:index withObject:dictToUpdate];
-        
-        // Write the updated array back to the plist file
-        if (![plistArray writeToFile:plistFilePath atomically:YES]) {
-            NSLog(@"Failed to update plist file.");
-        } else {
-            NSLog(@"Plist file updated successfully at path: %@", plistFilePath);
-        }
-    } else {
-        NSLog(@"Failed to load plist file or invalid index.");
+        // If the task has a parent, generate a hierarchical number based on its parent
+        NSFetchRequest<TaskList *> *fetchRequest = [TaskList fetchRequest];
+        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"parentTask == %@", parent];
+        NSInteger count = [context countForFetchRequest:fetchRequest error:nil];
+        NSString *parentNumber = parent.hierarchicalNumber ?: @"0";
+        return [NSString stringWithFormat:@"%@.%ld", parentNumber, (long)(count)];
     }
 }
 
-- (void)deleteTask:(NSInteger)index {
-    // Remove the task to delete from the data array
+- (NSArray<TaskList *> *)fetchTask{
+    NSManagedObjectContext *context = [[CoreDataStack sharedInstance] managedObjectContext];
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"TaskList"];
     
-    NSString *plistFilePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@"TasksList.plist"];
+    // Create a sort descriptor to sort tasks by the 'level' attribute
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"hierarchicalNumber" ascending:YES selector:@selector(localizedStandardCompare:)];
+    fetchRequest.sortDescriptors = @[sortDescriptor];
     
-    // Load the contents of the plist into an array
-    NSMutableArray *plistArray = [NSMutableArray arrayWithContentsOfFile:plistFilePath];
-    if (plistArray && index < [plistArray count]) {
-        [plistArray removeObjectAtIndex:index];
-        if (![plistArray writeToFile:plistFilePath atomically:YES]) {
-            NSLog(@"Failed to update plist file.");
-        } else {
-            NSLog(@"Plist file updated successfully at path: %@", plistFilePath);
-        }
+    // Perform the fetch request
+    NSError *error = nil;
+    NSArray<TaskList *> *fetchedTasks = [context executeFetchRequest:fetchRequest error:&error];
+    if (error) {
+        NSLog(@"Failed to fetch tasks: %@", error);
+        return @[];
     }
-
+    return fetchedTasks;
 }
 
-// Helper method to serialize subtasks
-- (NSArray<NSDictionary *> *)serializeSubtasks:(NSArray<TaskModel *> *)subtasks {
-    NSMutableArray<NSDictionary *> *serializedSubtasks = [NSMutableArray array];
-    for (TaskModel *subtask in subtasks) {
-        NSDictionary *serializedSubtask = @{
-            @"name": subtask.name,
-            @"level": @(subtask.level)
-        };
-        [serializedSubtasks addObject:serializedSubtask];
-    }
-    return [serializedSubtasks copy];
-}
-
-
-
-// Helper method to deserialize subtasks
-- (NSArray<TaskModel *> *)deserializeSubtasks:(NSArray<NSDictionary *> *)serializedSubtasks {
-    NSMutableArray<TaskModel *> *subtasks = [NSMutableArray array];
-    for (NSDictionary *serializedSubtask in serializedSubtasks) {
-        NSString *name = serializedSubtask[@"name"];
-        NSInteger level = [serializedSubtask[@"level"] integerValue];
-        // Initialize TaskModel object using name, level, and other properties if needed
-        TaskModel *subtask = [[TaskModel alloc] initWithName:name level:level subtasks:nil]; // Assuming subtasks are TaskModel objects
-        [subtasks addObject:subtask];
-    }
-    return [subtasks copy];
+- (void)updateTaskWithName:(NSString *)updatedName ofTask:(TaskList *)selectedTask{
+    selectedTask.taskName = updatedName;
+    [[CoreDataStack sharedInstance] saveContext];
 }
 
 @end

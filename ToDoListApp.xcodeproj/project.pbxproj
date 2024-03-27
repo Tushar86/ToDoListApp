@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7891F8082BB4353200864810 /* Tasks.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7891F8062BB4353200864810 /* Tasks.xcdatamodeld */; };
+		7891F80B2BB436BA00864810 /* CoreDataStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 7891F8092BB436BA00864810 /* CoreDataStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7891F80C2BB436BA00864810 /* CoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 7891F80A2BB436BA00864810 /* CoreDataStack.m */; };
+		7891F8102BB4398800864810 /* ToDoListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7891F80E2BB4398800864810 /* ToDoListTableViewCell.swift */; };
+		7891F8112BB4398800864810 /* ToDoListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7891F80F2BB4398800864810 /* ToDoListTableViewCell.xib */; };
+		7891F8142BB43BF400864810 /* TaskList.h in Headers */ = {isa = PBXBuildFile; fileRef = 7891F8122BB43BF400864810 /* TaskList.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7891F8152BB43BF400864810 /* TaskList.m in Sources */ = {isa = PBXBuildFile; fileRef = 7891F8132BB43BF400864810 /* TaskList.m */; };
+		7891F8182BB4434600864810 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7891F8172BB4434600864810 /* CoreData.framework */; };
+		7891F8192BB4439A00864810 /* Tasks.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7891F8062BB4353200864810 /* Tasks.xcdatamodeld */; };
 		78CD249D2B9FA1B0005FB330 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78CD249C2B9FA1B0005FB330 /* AppDelegate.swift */; };
 		78CD249F2B9FA1B0005FB330 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78CD249E2B9FA1B0005FB330 /* SceneDelegate.swift */; };
 		78CD24A12B9FA1B0005FB330 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78CD24A02B9FA1B0005FB330 /* ViewController.swift */; };
@@ -19,8 +28,6 @@
 		78CD24C92B9FA46B005FB330 /* ToDoListAppShared.h in Headers */ = {isa = PBXBuildFile; fileRef = 78CD24BB2B9FA46B005FB330 /* ToDoListAppShared.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		78CD24CC2B9FA46B005FB330 /* ToDoListAppShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78CD24B92B9FA46B005FB330 /* ToDoListAppShared.framework */; };
 		78CD24CD2B9FA46B005FB330 /* ToDoListAppShared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 78CD24B92B9FA46B005FB330 /* ToDoListAppShared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		78CD24D92B9FA4D4005FB330 /* TaskModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 78CD24D72B9FA4D4005FB330 /* TaskModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		78CD24DA2B9FA4D4005FB330 /* TaskModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CD24D82B9FA4D4005FB330 /* TaskModel.m */; };
 		78CD24DD2B9FA555005FB330 /* TaskOperations.h in Headers */ = {isa = PBXBuildFile; fileRef = 78CD24DB2B9FA555005FB330 /* TaskOperations.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		78CD24DE2B9FA555005FB330 /* TaskOperations.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CD24DC2B9FA555005FB330 /* TaskOperations.m */; };
 /* End PBXBuildFile section */
@@ -64,6 +71,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7891F8072BB4353200864810 /* Tasks.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Tasks.xcdatamodel; sourceTree = "<group>"; };
+		7891F8092BB436BA00864810 /* CoreDataStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreDataStack.h; sourceTree = "<group>"; };
+		7891F80A2BB436BA00864810 /* CoreDataStack.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreDataStack.m; sourceTree = "<group>"; };
+		7891F80E2BB4398800864810 /* ToDoListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListTableViewCell.swift; sourceTree = "<group>"; };
+		7891F80F2BB4398800864810 /* ToDoListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToDoListTableViewCell.xib; sourceTree = "<group>"; };
+		7891F8122BB43BF400864810 /* TaskList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskList.h; sourceTree = "<group>"; };
+		7891F8132BB43BF400864810 /* TaskList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskList.m; sourceTree = "<group>"; };
+		7891F8172BB4434600864810 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
 		78CD24992B9FA1B0005FB330 /* ToDoListApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoListApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		78CD249C2B9FA1B0005FB330 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		78CD249E2B9FA1B0005FB330 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -77,8 +92,6 @@
 		78CD24BB2B9FA46B005FB330 /* ToDoListAppShared.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToDoListAppShared.h; sourceTree = "<group>"; };
 		78CD24C02B9FA46B005FB330 /* ToDoListAppSharedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToDoListAppSharedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		78CD24C72B9FA46B005FB330 /* ToDoListAppSharedTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToDoListAppSharedTests.m; sourceTree = "<group>"; };
-		78CD24D72B9FA4D4005FB330 /* TaskModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskModel.h; sourceTree = "<group>"; };
-		78CD24D82B9FA4D4005FB330 /* TaskModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskModel.m; sourceTree = "<group>"; };
 		78CD24DB2B9FA555005FB330 /* TaskOperations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskOperations.h; sourceTree = "<group>"; };
 		78CD24DC2B9FA555005FB330 /* TaskOperations.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskOperations.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -96,6 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7891F8182BB4434600864810 /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,6 +124,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7891F8052BB4348200864810 /* CoreDataModel */ = {
+			isa = PBXGroup;
+			children = (
+				7891F8062BB4353200864810 /* Tasks.xcdatamodeld */,
+				7891F8092BB436BA00864810 /* CoreDataStack.h */,
+				7891F80A2BB436BA00864810 /* CoreDataStack.m */,
+			);
+			path = CoreDataModel;
+			sourceTree = "<group>";
+		};
+		7891F80D2BB4374B00864810 /* ListCellClass */ = {
+			isa = PBXGroup;
+			children = (
+				7891F80E2BB4398800864810 /* ToDoListTableViewCell.swift */,
+				7891F80F2BB4398800864810 /* ToDoListTableViewCell.xib */,
+			);
+			path = ListCellClass;
+			sourceTree = "<group>";
+		};
+		7891F8162BB4434600864810 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7891F8172BB4434600864810 /* CoreData.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		78CD24902B9FA1B0005FB330 = {
 			isa = PBXGroup;
 			children = (
@@ -117,6 +158,7 @@
 				78CD24BA2B9FA46B005FB330 /* ToDoListAppShared */,
 				78CD24C62B9FA46B005FB330 /* ToDoListAppSharedTests */,
 				78CD249A2B9FA1B0005FB330 /* Products */,
+				7891F8162BB4434600864810 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -133,6 +175,7 @@
 		78CD249B2B9FA1B0005FB330 /* ToDoListApp */ = {
 			isa = PBXGroup;
 			children = (
+				7891F80D2BB4374B00864810 /* ListCellClass */,
 				78CD24B12B9FA1D0005FB330 /* EditTaskScreen */,
 				78CD24B02B9FA1B8005FB330 /* ToDoListMainScreen */,
 				78CD249C2B9FA1B0005FB330 /* AppDelegate.swift */,
@@ -164,6 +207,7 @@
 		78CD24BA2B9FA46B005FB330 /* ToDoListAppShared */ = {
 			isa = PBXGroup;
 			children = (
+				7891F8052BB4348200864810 /* CoreDataModel */,
 				78CD24D62B9FA49C005FB330 /* Model */,
 				78CD24D52B9FA48B005FB330 /* ViewModel */,
 				78CD24BB2B9FA46B005FB330 /* ToDoListAppShared.h */,
@@ -191,8 +235,8 @@
 		78CD24D62B9FA49C005FB330 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				78CD24D72B9FA4D4005FB330 /* TaskModel.h */,
-				78CD24D82B9FA4D4005FB330 /* TaskModel.m */,
+				7891F8122BB43BF400864810 /* TaskList.h */,
+				7891F8132BB43BF400864810 /* TaskList.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -205,7 +249,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				78CD24C92B9FA46B005FB330 /* ToDoListAppShared.h in Headers */,
-				78CD24D92B9FA4D4005FB330 /* TaskModel.h in Headers */,
+				7891F8142BB43BF400864810 /* TaskList.h in Headers */,
+				7891F80B2BB436BA00864810 /* CoreDataStack.h in Headers */,
 				78CD24DD2B9FA555005FB330 /* TaskOperations.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -319,6 +364,7 @@
 				78CD24A92B9FA1B1005FB330 /* LaunchScreen.storyboard in Resources */,
 				78CD24A62B9FA1B1005FB330 /* Assets.xcassets in Resources */,
 				78CD24A42B9FA1B0005FB330 /* Main.storyboard in Resources */,
+				7891F8112BB4398800864810 /* ToDoListTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,6 +391,8 @@
 			files = (
 				78CD24B32B9FA24C005FB330 /* EditViewController.swift in Sources */,
 				78CD24A12B9FA1B0005FB330 /* ViewController.swift in Sources */,
+				7891F8192BB4439A00864810 /* Tasks.xcdatamodeld in Sources */,
+				7891F8102BB4398800864810 /* ToDoListTableViewCell.swift in Sources */,
 				78CD249D2B9FA1B0005FB330 /* AppDelegate.swift in Sources */,
 				78CD249F2B9FA1B0005FB330 /* SceneDelegate.swift in Sources */,
 			);
@@ -355,7 +403,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				78CD24DE2B9FA555005FB330 /* TaskOperations.m in Sources */,
-				78CD24DA2B9FA4D4005FB330 /* TaskModel.m in Sources */,
+				7891F8152BB43BF400864810 /* TaskList.m in Sources */,
+				7891F8082BB4353200864810 /* Tasks.xcdatamodeld in Sources */,
+				7891F80C2BB436BA00864810 /* CoreDataStack.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -722,6 +772,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		7891F8062BB4353200864810 /* Tasks.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				7891F8072BB4353200864810 /* Tasks.xcdatamodel */,
+			);
+			currentVersion = 7891F8072BB4353200864810 /* Tasks.xcdatamodel */;
+			path = Tasks.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 78CD24912B9FA1B0005FB330 /* Project object */;
 }

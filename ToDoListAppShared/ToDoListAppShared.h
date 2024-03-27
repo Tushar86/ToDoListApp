@@ -15,5 +15,6 @@ FOUNDATION_EXPORT const unsigned char ToDoListAppSharedVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <ToDoListAppShared/PublicHeader.h>
 
-#import <ToDoListAppShared/TaskModel.h>
+#import <ToDoListAppShared/TaskList.h>
 #import <ToDoListAppShared/TaskOperations.h>
+#import <ToDoListAppShared/CoreDataStack.h>

@@ -85,4 +85,38 @@
     [[CoreDataStack sharedInstance] saveContext];
 }
 
+- (void)deleteParentTaskAndSubtasks:(TaskList *)parentTask completion:(void (^)(NSArray<TaskList *> *))completion {
+    NSManagedObjectContext *backgroundContext = [[CoreDataStack sharedInstance] managedObjectContext];
+    [backgroundContext performBlock:^{
+        NSMutableArray<TaskList *> *deletedTasks = [NSMutableArray arrayWithObject:parentTask];
+        [deletedTasks addObjectsFromArray:[self collectSubtasksToDeleteForParentTask:parentTask]];
+        
+        for (TaskList *task in deletedTasks) {
+            [backgroundContext deleteObject:task];
+        }
+        
+        NSError *error = nil;
+        if (![backgroundContext save:&error]) {
+            NSLog(@"Error saving context: %@", error);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion(@[]);
+            });
+            return;
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completion(deletedTasks);
+        });
+    }];
+}
+
+- (NSArray<TaskList *> *)collectSubtasksToDeleteForParentTask:(TaskList *)parentTask {
+    NSMutableArray<TaskList *> *subtasks = [NSMutableArray array];
+    for (TaskList *subtask in [parentTask.subtask allObjects]) {
+        [subtasks addObject:subtask];
+        [subtasks addObjectsFromArray:[self collectSubtasksToDeleteForParentTask:subtask]];
+    }
+    return subtasks;
+}
+
 @end

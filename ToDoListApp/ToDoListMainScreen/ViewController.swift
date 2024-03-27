@@ -49,17 +49,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = toDoListTable.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as! ToDoListTableViewCell
-        let task = tasksArray[indexPath.row]
-        let indentation = String(repeating: "  ", count: task.level)
-        if task.level == 0 {
-            cell.hierarchicalNumberLabel.text = indentation + "Root "+task.hierarchicalNumber + " -"
-        } else {
-            cell.hierarchicalNumberLabel.text = indentation + "Child "+task.hierarchicalNumber + " -"
-        }
-        cell.taskNameLabel.text = task.taskName
-        cell.taskCheckBtn.setImage(task.isCompleted ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "checkmark.circle"), for: .normal)
-
-        cell.accessoryType = .disclosureIndicator
+        self.configureCell(cell, for: indexPath)
         return cell
     }
     
@@ -69,6 +59,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, sourceView, completion) in
+            self.deleteParentTaskAndSubtasks(self.tasksArray[indexPath.row])
             completion(true)
         }
         let addSubtaskAction = UIContextualAction(style: .normal, title: "Add Subtask") { (action, sourceView, completion) in
@@ -78,6 +69,49 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
         }
         let swipeConfiguration = UISwipeActionsConfiguration(actions: [deleteAction, addSubtaskAction])
         return swipeConfiguration
+    }
+    
+    func deleteParentTaskAndSubtasks(_ parentTask: TaskList) {
+        taskOperationObj.deleteParentTaskAndSubtasks(parentTask) { deletedSubtasks in
+            // Update your table view data source and delete corresponding rows
+            var indexPathsToRemove: [IndexPath] = []
+            for task in deletedSubtasks {
+                if let index = self.tasksArray.firstIndex(of: task) {
+                    let indexPath = IndexPath(row: index, section: 0)
+                    indexPathsToRemove.append(indexPath)
+                }
+            }
+            self.toDoListTable.beginUpdates()
+            self.tasksArray.removeAll { task in
+                deletedSubtasks.contains(task)
+            }
+            self.toDoListTable.deleteRows(at: indexPathsToRemove, with: .automatic)
+            self.toDoListTable.endUpdates()
+            
+            if let visibleIndexPaths = self.toDoListTable.indexPathsForVisibleRows {
+                for indexPath in visibleIndexPaths {
+                    if indexPath.row >= indexPathsToRemove[0].row {
+                        // Update the index path
+                        // Get the cell and update its content if needed
+                        if let cell = self.toDoListTable.cellForRow(at: indexPath) as? ToDoListTableViewCell {
+                            self.configureCell(cell, for: indexPath)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func configureCell(_ cell: ToDoListTableViewCell, for indexPath: IndexPath) {
+        let task = self.tasksArray[indexPath.row]
+        let indentation = String(repeating: "  ", count: task.level)
+        if task.level == 0 {
+            cell.hierarchicalNumberLabel.text = indentation + "Root "+task.hierarchicalNumber + " -"
+        } else {
+            cell.hierarchicalNumberLabel.text = indentation + "Child "+task.hierarchicalNumber + " -"
+        }
+        cell.taskNameLabel.text = task.taskName
+        cell.taskCheckBtn.setImage(task.isCompleted ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "checkmark.circle"), for: .normal)
     }
 }
 

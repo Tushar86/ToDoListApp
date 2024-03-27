@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addSubtaskWithName:(NSString *)name subtaskLevel:(NSInteger)level atIndex:(NSInteger)indexValue parentTask:(TaskList *)parentTask;
 - (NSArray<TaskList *> *)fetchTask;
 - (void)updateTaskWithName:(NSString *)updatedName ofTask:(TaskList *)selectedTask;
+- (void)deleteParentTaskAndSubtasks:(TaskList *)parentTask completion:(void (^)(NSArray<TaskList *> *))completion;
 
 @end
 

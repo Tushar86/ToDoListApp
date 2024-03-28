@@ -11,7 +11,6 @@ import ToDoListAppShared
 class EditViewController: UIViewController, UITextViewDelegate {
 
     var tittleValue : String?
-    var indexvalue : Int?
     var isParent = Bool()
     
     let tittleTextView = UITextView()
@@ -77,7 +76,7 @@ class EditViewController: UIViewController, UITextViewDelegate {
     
     @objc func backToParentView(){
         if(tittleValue == nil && isParent){
-            taskOperationObj.addSubtask(withName: tittleTextView.text, subtaskLevel: selectedTaskArray![0].level+1, at: indexvalue!+1, parentTask: selectedTaskArray![0])
+            taskOperationObj.addSubtask(withName: tittleTextView.text, subtaskLevel: selectedTaskArray![0].level+1, parentTask: selectedTaskArray![0])
         }
         else if(tittleValue == nil){
             taskOperationObj.addTask(tittleTextView.text, taskLevel: 0)

@@ -16,6 +16,9 @@
 		7891F8152BB43BF400864810 /* TaskList.m in Sources */ = {isa = PBXBuildFile; fileRef = 7891F8132BB43BF400864810 /* TaskList.m */; };
 		7891F8182BB4434600864810 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7891F8172BB4434600864810 /* CoreData.framework */; };
 		7891F8192BB4439A00864810 /* Tasks.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7891F8062BB4353200864810 /* Tasks.xcdatamodeld */; };
+		7891F8242BB5C0AD00864810 /* AddTaskTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7891F8232BB5C0AD00864810 /* AddTaskTest.swift */; };
+		7891F8262BB5C2B700864810 /* UpdateTaskTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7891F8252BB5C2B700864810 /* UpdateTaskTest.swift */; };
+		7891F8282BB5C36A00864810 /* DeleteTaskTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7891F8272BB5C36A00864810 /* DeleteTaskTest.swift */; };
 		78CD249D2B9FA1B0005FB330 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78CD249C2B9FA1B0005FB330 /* AppDelegate.swift */; };
 		78CD249F2B9FA1B0005FB330 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78CD249E2B9FA1B0005FB330 /* SceneDelegate.swift */; };
 		78CD24A12B9FA1B0005FB330 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78CD24A02B9FA1B0005FB330 /* ViewController.swift */; };
@@ -79,6 +82,10 @@
 		7891F8122BB43BF400864810 /* TaskList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskList.h; sourceTree = "<group>"; };
 		7891F8132BB43BF400864810 /* TaskList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskList.m; sourceTree = "<group>"; };
 		7891F8172BB4434600864810 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
+		7891F8222BB5C0AD00864810 /* ToDoListAppSharedTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ToDoListAppSharedTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		7891F8232BB5C0AD00864810 /* AddTaskTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskTest.swift; sourceTree = "<group>"; };
+		7891F8252BB5C2B700864810 /* UpdateTaskTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTaskTest.swift; sourceTree = "<group>"; };
+		7891F8272BB5C36A00864810 /* DeleteTaskTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteTaskTest.swift; sourceTree = "<group>"; };
 		78CD24992B9FA1B0005FB330 /* ToDoListApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoListApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		78CD249C2B9FA1B0005FB330 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		78CD249E2B9FA1B0005FB330 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -219,6 +226,10 @@
 			isa = PBXGroup;
 			children = (
 				78CD24C72B9FA46B005FB330 /* ToDoListAppSharedTests.m */,
+				7891F8232BB5C0AD00864810 /* AddTaskTest.swift */,
+				7891F8222BB5C0AD00864810 /* ToDoListAppSharedTests-Bridging-Header.h */,
+				7891F8252BB5C2B700864810 /* UpdateTaskTest.swift */,
+				7891F8272BB5C36A00864810 /* DeleteTaskTest.swift */,
 			);
 			path = ToDoListAppSharedTests;
 			sourceTree = "<group>";
@@ -332,6 +343,7 @@
 					};
 					78CD24BF2B9FA46B005FB330 = {
 						CreatedOnToolsVersion = 15.1;
+						LastSwiftMigration = 1510;
 						TestTargetID = 78CD24982B9FA1B0005FB330;
 					};
 				};
@@ -413,6 +425,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7891F8242BB5C0AD00864810 /* AddTaskTest.swift in Sources */,
+				7891F8282BB5C36A00864810 /* DeleteTaskTest.swift in Sources */,
+				7891F8262BB5C2B700864810 /* UpdateTaskTest.swift in Sources */,
 				78CD24C82B9FA46B005FB330 /* ToDoListAppSharedTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -702,6 +717,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ULP77TJ63A;
@@ -710,6 +726,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Tushar.ToDoListAppSharedTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "ToDoListAppSharedTests/ToDoListAppSharedTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ToDoListApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ToDoListApp";
 			};
@@ -719,6 +738,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ULP77TJ63A;
@@ -727,6 +747,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Tushar.ToDoListAppSharedTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "ToDoListAppSharedTests/ToDoListAppSharedTests-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ToDoListApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ToDoListApp";
 			};

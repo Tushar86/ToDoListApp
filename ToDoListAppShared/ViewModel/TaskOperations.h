@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)sharedInstance;
 - (void)addTask:(NSString *)name taskLevel:(NSInteger)level;
-- (void)addSubtaskWithName:(NSString *)name subtaskLevel:(NSInteger)level atIndex:(NSInteger)indexValue parentTask:(TaskList *)parentTask;
+- (void)addSubtaskWithName:(NSString *)name subtaskLevel:(NSInteger)level parentTask:(TaskList *)parentTask;
 - (NSArray<TaskList *> *)fetchTask;
 - (void)updateTaskWithName:(NSString *)updatedName ofTask:(TaskList *)selectedTask;
 - (void)deleteParentTaskAndSubtasks:(TaskList *)parentTask completion:(void (^)(NSArray<TaskList *> *))completion;

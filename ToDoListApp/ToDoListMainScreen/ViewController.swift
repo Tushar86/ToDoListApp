@@ -31,13 +31,12 @@ class ViewController: UIViewController, TaskManagerDelegate {
     }
     
     @objc func addTask(){
-        self.navigateToEditScreen(taskTittleValue: nil, tittleIndexValue: nil, isParent: false, currentIndexTaskDataArray: nil)
+        self.navigateToEditScreen(taskTittleValue: nil, isParent: false, currentIndexTaskDataArray: nil)
     }
     
-    func navigateToEditScreen(taskTittleValue: String?, tittleIndexValue: Int?, isParent: Bool, currentIndexTaskDataArray: [TaskList]?){
+    func navigateToEditScreen(taskTittleValue: String?, isParent: Bool, currentIndexTaskDataArray: [TaskList]?){
         lazy var editVC = EditViewController()
         editVC.tittleValue = taskTittleValue
-        editVC.indexvalue = tittleIndexValue
         editVC.isParent = isParent
         editVC.selectedTaskArray = currentIndexTaskDataArray
         navigationController?.pushViewController(editVC, animated: true)
@@ -57,7 +56,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.navigateToEditScreen(taskTittleValue: tasksArray[indexPath.row].taskName, tittleIndexValue: indexPath.row, isParent: false, currentIndexTaskDataArray: [tasksArray[indexPath.row]])
+        self.navigateToEditScreen(taskTittleValue: tasksArray[indexPath.row].taskName, isParent: false, currentIndexTaskDataArray: [tasksArray[indexPath.row]])
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -66,7 +65,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
             completion(true)
         }
         let addSubtaskAction = UIContextualAction(style: .normal, title: "Add Subtask") { (action, sourceView, completion) in
-            self.navigateToEditScreen(taskTittleValue: nil, tittleIndexValue: indexPath.row, isParent: true, currentIndexTaskDataArray: [self.tasksArray[indexPath.row]])
+            self.navigateToEditScreen(taskTittleValue: nil, isParent: true, currentIndexTaskDataArray: [self.tasksArray[indexPath.row]])
             completion(true)
             
         }

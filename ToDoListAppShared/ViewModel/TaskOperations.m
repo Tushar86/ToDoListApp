@@ -19,30 +19,35 @@
 }
 
 - (void)addTask:(NSString *)name taskLevel:(NSInteger)level{
-    NSManagedObjectContext *context = [[CoreDataStack sharedInstance] managedObjectContext];
-    TaskList *newTask = [NSEntityDescription insertNewObjectForEntityForName:@"TaskList" inManagedObjectContext:context];
+    NSManagedObjectContext *context = [[[CoreDataStack sharedInstance] managedObjectContext]retain];
+    TaskList *newTask = [[NSEntityDescription insertNewObjectForEntityForName:@"TaskList" inManagedObjectContext:context]retain];
     newTask.taskName = name;
     newTask.level = level;
     newTask.isCompleted = NO;
-    newTask.hierarchicalNumber = [self generateHierarchicalNumberForParent:nil inContext:context];
+    newTask.hierarchicalNumber = [[self generateHierarchicalNumberForParent:nil inContext:context]retain];
     
     [[CoreDataStack sharedInstance] saveContext];
+    [context release];
+    [newTask release];
 }
 
 - (void)addSubtaskWithName:(NSString *)name subtaskLevel:(NSInteger)level parentTask:(TaskList *)parentTask {
-    NSManagedObjectContext *context = [[CoreDataStack sharedInstance] managedObjectContext];
-    TaskList *newTask = [NSEntityDescription insertNewObjectForEntityForName:@"TaskList" inManagedObjectContext:context];
+    NSManagedObjectContext *context = [[[CoreDataStack sharedInstance] managedObjectContext]retain];
+    TaskList *newTask = [[NSEntityDescription insertNewObjectForEntityForName:@"TaskList" inManagedObjectContext:context]retain];
     newTask.taskName = name;
     newTask.level = level;
     newTask.isCompleted = NO;
     newTask.parentTask = parentTask;
-    newTask.hierarchicalNumber = [self generateHierarchicalNumberForParent:parentTask inContext:context];
+    newTask.hierarchicalNumber = [[self generateHierarchicalNumberForParent:parentTask inContext:context]retain];
     
-    NSMutableSet *mutableSubtasks = [parentTask.subtask mutableCopy];
+    NSMutableSet *mutableSubtasks = [[parentTask.subtask mutableCopy]autorelease];
     [mutableSubtasks addObject:newTask];
     parentTask.subtask = [mutableSubtasks copy];
     
-    [[CoreDataStack sharedInstance] saveContext];
+    [[CoreDataStack sharedInstance]saveContext];
+    
+    [context release];
+    [newTask release];
 }
 
 - (NSString *)generateHierarchicalNumberForParent:(TaskList *)parent inContext:(NSManagedObjectContext *)context {
